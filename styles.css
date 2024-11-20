@@ -1,0 +1,10 @@
+table {
+    border-collapse: collapse; /* Ensures borders don't double up */
+    width: 100%; /* Optional: Makes table width 100% of parent container */
+}
+
+td, th {
+    border: 1px solid black; /* Adds borders to cells */
+    padding: 8px; /* Adds spacing inside cells */
+    text-align: left; /* Optional: Aligns text to the left */
+}
