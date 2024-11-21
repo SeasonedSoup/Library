@@ -14,7 +14,28 @@ function Book(title, author, pages, read) {
 };
 
 function addBookToLibrary(title, author, pages, read) {
-    book = new Book(title, author, pages, read);
-    myLibrary += book;
+    const book = new Book(title, author, pages, read);
+    myLibrary.push(book);
+}
+
+
+function createTableRows (myLibrary) {
+    const tableBody = document.querySelector('.table-body');
+
+    myLibrary.forEach(book => {
+        const tableRows = document.createElement('tr');
+
+        for(let key in book) {
+            const tableData = document.createElement('td');
+            tableData.textContent = book[key]
+            tableRows.appendChild(tableData)
+        }
+
+        tableBody.appendChild(tableRows)
+   })
+   
 
 }
+
+
+
