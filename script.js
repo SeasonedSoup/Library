@@ -1,5 +1,6 @@
 const myLibrary = [];
 
+createTableRows (myLibrary);
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -11,12 +12,12 @@ function Book(title, author, pages, read) {
 function addBookToLibrary(title, author, pages, read) {
     const book = new Book(title, author, pages, read);
     myLibrary.push(book);
-}
+};
 
 
 function createTableRows (myLibrary) {
     const tableBody = document.querySelector('.table-body');
-
+    tableBody.innerHTML= '';
     myLibrary.forEach(book => {
         const tableRows = document.createElement('tr');
 
@@ -24,10 +25,10 @@ function createTableRows (myLibrary) {
             const tableData = document.createElement('td');
             tableData.textContent = book[key];
             tableRows.appendChild(tableData);
-        }
+        };
 
         tableBody.appendChild(tableRows);
-   })
+   });
 };
 
 const newBookButton = document.createElement('button');
@@ -54,6 +55,8 @@ newBookButton.addEventListener('click', () => {
         input.type = inputData.type;
         input.name = inputData.name;
         input.id = inputData.id;
+
+        input.required = true;
 
         form.appendChild(label);
         form.appendChild(input);
@@ -88,19 +91,20 @@ newBookButton.addEventListener('click', () => {
     
     form.appendChild(submitButton);
     document.body.appendChild(form);
+    
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+    
+        const title = document.querySelector('#bookName').value;
+        const author = document.querySelector('#author').value;
+        const pages = document.querySelector('#pages').value;
+        const read = document.querySelector('#readStatus').value;
+    
+        addBookToLibrary(title, author, pages, read);
+        createTableRows(myLibrary);
+        form.reset();
 
-})
+    });
 
-form.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const title = document.querySelector('#bookName');
-    const author = document.querySelector('#author');
-    const pages = document.querySelector('#pages');
-    const read = document.querySelector('readStatus');
-
-    addBookToLibrary(title, author, pages, read);
-
-    form.reset();
 });
 
