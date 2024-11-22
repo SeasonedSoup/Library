@@ -39,11 +39,68 @@ body.appendChild(newBookButton);
 /*create a modal form*/
 newBookButton.addEventListener('click', () => {
     const form = document.createElement('form')
-   const inputs = [
-    { label: 'Book Name', type: 'text', name: 'bookName', id: 'bookName'},
-    { label: 'Author', type: 'text', name: 'author', id: 'author' },
-    { label: 'Pages',  type: 'number', name: 'pages', id: 'pages'}
-   ];
+    const inputs = [
+        { label: 'Book Name', type: 'text', name: 'bookName', id: 'bookName'},
+        { label: 'Author', type: 'text', name: 'author', id: 'author' },
+        { label: 'Pages',  type: 'number', name: 'pages', id: 'pages'}
+    ];
+
+    inputs.forEach((inputData) =>  {
+        const label = document.createElement('label');
+        label.textContent = inputData.label;
+        label.setAttribute('for', inputData.id);
+
+        const input = document.createElement('input');
+        input.type = inputData.type;
+        input.name = inputData.name;
+        input.id = inputData.id;
+
+        form.appendChild(label);
+        form.appendChild(input);
+        form.appendChild(document.createElement('br')); 
+    })
+
+    const readLabel = document.createElement('label');
+    readLabel.textContent = "Read?";
+    readLabel.setAttribute('for', 'readStatus')
+    
+    const dropdown = document.createElement('select');
+    dropdown.name = 'readStatus';
+    dropdown.id = 'readStatus';
+
+    const option = ['Yes', 'No'];
+
+    option.forEach((optionText) => {
+        const dropdownOption = document.createElement('option');
+        dropdownOption.value = optionText.toLowerCase();
+        dropdownOption.textContent = optionText;
+
+        dropdown.appendChild(dropdownOption);
+    });
+
+    form.appendChild(readLabel);
+    form.appendChild(dropdown);
+    form.appendChild(document.createElement('br'));
+
+    const submitButton = document.createElement('button');
+    submitButton.type = 'submit'
+    submitButton.textContent = 'Add Book';
+    
+    form.appendChild(submitButton);
+    document.body.appendChild(form);
+
 })
 
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const title = document.querySelector('#bookName');
+    const author = document.querySelector('#author');
+    const pages = document.querySelector('#pages');
+    const read = document.querySelector('readStatus');
+
+    addBookToLibrary(title, author, pages, read);
+
+    form.reset();
+});
 
