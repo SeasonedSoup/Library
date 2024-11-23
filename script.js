@@ -18,6 +18,12 @@ function addBookToLibrary(title, author, pages, read) {
 function createTableRows (myLibrary) {
     const tableBody = document.querySelector('.table-body');
     tableBody.innerHTML= '';
+    const headerColumns = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+
+    myLibrary.forEach((title) => {
+        const tableHeaders = document.createElement('th');
+    }) 
     myLibrary.forEach((book, index) => {
         const tableRows = document.createElement('tr');
 
@@ -32,10 +38,20 @@ function createTableRows (myLibrary) {
 
         removeBookButton.addEventListener('click', () => {
             myLibrary.splice(index, 1);
-            createTableRows(myLibrary)
+            createTableRows(myLibrary);
+        })
+        
+        const toggleReadButton = document.createElement('button');
+        toggleReadButton.textContent = 'Toggle-Read';
+       
+        
+        toggleReadButton.addEventListener('click', () => {
+            book.read = (book.read === 'read') ? 'unread' : 'read';
+            createTableRows(myLibrary);
         })
 
         const actionCell = document.createElement('td');
+        actionCell.appendChild(toggleReadButton);
         actionCell.appendChild(removeBookButton);
 
         tableRows.appendChild(actionCell);
@@ -83,7 +99,7 @@ newBookButton.addEventListener('click', () => {
     dropdown.name = 'readStatus';
     dropdown.id = 'readStatus';
 
-    const option = ['Yes', 'No'];
+    const option = ['read', 'unread'];
 
     option.forEach((optionText) => {
         const dropdownOption = document.createElement('option');
