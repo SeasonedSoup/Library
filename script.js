@@ -18,7 +18,7 @@ function addBookToLibrary(title, author, pages, read) {
 function createTableRows (myLibrary) {
     const tableBody = document.querySelector('.table-body');
     tableBody.innerHTML= '';
-    myLibrary.forEach(book => {
+    myLibrary.forEach((book, index) => {
         const tableRows = document.createElement('tr');
 
         for(let key in book) {
@@ -27,6 +27,18 @@ function createTableRows (myLibrary) {
             tableRows.appendChild(tableData);
         };
 
+        const removeBookButton = document.createElement('button');
+        removeBookButton.textContent = 'Remove';
+
+        removeBookButton.addEventListener('click', () => {
+            myLibrary.splice(index, 1);
+            createTableRows(myLibrary)
+        })
+
+        const actionCell = document.createElement('td');
+        actionCell.appendChild(removeBookButton);
+
+        tableRows.appendChild(actionCell);
         tableBody.appendChild(tableRows);
    });
 };
@@ -103,7 +115,6 @@ newBookButton.addEventListener('click', () => {
         addBookToLibrary(title, author, pages, read);
         createTableRows(myLibrary);
         form.reset();
-
     });
 
 });
