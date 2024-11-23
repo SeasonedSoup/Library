@@ -18,12 +18,7 @@ function addBookToLibrary(title, author, pages, read) {
 function createTableRows (myLibrary) {
     const tableBody = document.querySelector('.table-body');
     tableBody.innerHTML= '';
-    const headerColumns = document.createElement('thead');
-    const headerRow = document.createElement('tr');
-
-    myLibrary.forEach((title) => {
-        const tableHeaders = document.createElement('th');
-    }) 
+    
     myLibrary.forEach((book, index) => {
         const tableRows = document.createElement('tr');
 
@@ -67,7 +62,15 @@ body.appendChild(newBookButton);
 
 /*create a modal form*/
 newBookButton.addEventListener('click', () => {
+    const existingForm = document.querySelector('.info-form');
+
+    if (existingForm) {
+        console.log("There is currently a form pls fill it up before making another one");
+        return;
+    }
     const form = document.createElement('form')
+    form.classList.add('info-form');
+
     const inputs = [
         { label: 'Book Name', type: 'text', name: 'bookName', id: 'bookName'},
         { label: 'Author', type: 'text', name: 'author', id: 'author' },
